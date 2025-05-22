@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { z } from "zod";
 import {zodToJsonSchema} from "zod-to-json-schema";
+import type {FunctionTool} from "openai/resources/responses/responses";
 
 export const getSymptomsInputSchema = z
   .object({
@@ -10,7 +11,7 @@ export const getSymptomsInputSchema = z
 
 type GetSymptomsInputType = z.infer<typeof getSymptomsInputSchema>;
 
-const getSymptoms = async (input: GetSymptomsInputType) => {
+export const getSymptoms = async (input: GetSymptomsInputType) => {
   const { text } = input;
   console.log("in getSymptoms");
 
@@ -23,7 +24,6 @@ const getSymptoms = async (input: GetSymptomsInputType) => {
     input: text,
   });
 
-  console.log(response);
   try {
     const parsed = JSON.parse(response.output_text);
     console.log(parsed);
@@ -35,8 +35,14 @@ const getSymptoms = async (input: GetSymptomsInputType) => {
   return { symptoms_present: [], symptoms_absent: [] };
 };
 
-// export the function for external usage
-export default getSymptoms;
+export const getSymptomsTool: FunctionTool = {
+  name: "getSymptoms",
+  description:
+    "Extract present and absent depression symptoms from the entire available user text / story",
+  parameters: zodToJsonSchema(getSymptomsInputSchema),
+  strict: true,
+  type: "function",
+};
 
 if (require.main === module) {
   (async () => {

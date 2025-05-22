@@ -5,8 +5,7 @@ import type { FunctionTool } from "openai/resources/responses/responses";
 import * as readline from "node:readline";
 import { z } from "zod";
 import {zodToJsonSchema} from "zod-to-json-schema";
-import {getSymptomsInputSchema} from "./getSymptoms";
-import getSymptoms from "./getSymptoms";
+import {getSymptoms, getSymptomsInputSchema} from "./tools/getSymptoms";
 import type { ResponseFunctionToolCall } from "openai/resources/responses/responses";
 
 const openai = new OpenAI();

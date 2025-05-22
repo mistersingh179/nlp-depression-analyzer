@@ -30,10 +30,10 @@
 
  ## Run the Interactive Agent
 
- Launch the console agent and follow the prompts:
- ```bash
- npx tsx src/agent.ts
- ```
+Launch the console agent and follow the prompts:
+```bash
+npx tsx src/agent.ts
+```
 
  ## Evaluate a Fine-Tuned Model
 
