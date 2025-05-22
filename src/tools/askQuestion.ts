@@ -2,7 +2,6 @@ import * as readline from "node:readline";
 import { z } from "zod";
 import type { FunctionTool } from "openai/resources/responses/responses";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import chalk from "chalk";
 
 export const askQuestionInputSchema = z.object({
   questionString: z.string().describe("The question to ask the user"),
@@ -19,7 +18,8 @@ export const askQuestion = async (
   });
 
   const formattedQuestionString =
-    chalk.bold.yellow("🤷‍♂️") + " " + chalk.green(questionString.trim() + " :   ") ;
+    // chalk.bold.yellow('🤷‍♂️') + ' ' + chalk.green(questionString.trim() + ' :   ');
+    " 🤷‍♂️ " + questionString.trim() + " :   ";
 
   return new Promise((resolve) => {
     rl.question(formattedQuestionString, (answer) => {
